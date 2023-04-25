@@ -63,4 +63,19 @@ class UtilisateurRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findByNom()
+{
+    return $this->createQueryBuilder('u')
+        ->orderBy('u.nom', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
+
+
+
+
+
+
+
 }

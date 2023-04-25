@@ -1,3 +1,12 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+bloquer:
+    path: /bloquer
+    controller: App\Controller\UtilisateurController::bloquer
+    methods: [POST]
+
+debloquer:
+    path: /debloquer
+    controller: App\Controller\UtilisateurController::debloquer
+    methods: [POST]

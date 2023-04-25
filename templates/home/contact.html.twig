@@ -16,7 +16,7 @@
 				<a href="index.html" class="logo m-0">Travolta<span class="text-primary">.</span></a>
 
         <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
-          <li class="active"><a href="{{ path('app_home') }}">Home</a></li>
+          <li class="active"><a href="{{ path('app_home')}}">Home</a></li>
           <li class="has-children">
         <a href="#">Services</a>
 						<ul class="dropdown">
@@ -27,7 +27,7 @@
 						</ul>
           </li>
           <li><a href="{{ path('app_Contact') }}">Contact</a></li>
-					<li><a  href="#">Déconnexion</a></li>
+					<li><a  href="{{ path('app_logout') }}">Déconnexion</a></li>
         </ul>
 
         <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">

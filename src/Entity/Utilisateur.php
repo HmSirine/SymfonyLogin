@@ -61,6 +61,23 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private $role;
     private $roles;
 
+       /**
+     * @ORM\Column(type="string", length=180, )
+     */
+    private $reset_token;
+      
+    private $enabled = true;
+
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -207,6 +224,23 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->reset_token;
+    }
+
+    /**
+     * @param mixed $reset_token
+     */
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
+    }
+
 }
 
 

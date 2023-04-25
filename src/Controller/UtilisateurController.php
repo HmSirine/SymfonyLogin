@@ -4,11 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+
+
 
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
@@ -85,6 +91,57 @@ class UtilisateurController extends AbstractController
         return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
     }
 
+        private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
      
+   /**
+     * @Route("/bloquer",name="bloquer")
+     */
+    public function bloquer(Request $request) {
+        var_dump("La méthode bloquer est appelée !");
+        die();
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $id = $request->get('id');
+            $utilisateur = $em->getRepository("App\Entity\Utilisateur")->find($id);
+            $utilisateur->setEnabled(false);
+            $em->flush();
+            $response = new JsonResponse();
+        }
+        return $response->setData(array('retour' => $id));
+    }
+
+    /**
+     * @Route("/debloquer",name="debloquer")
+     */
+    public function debloquer(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $id = $request->get('id');
+            $utilisateur = $em->getRepository("App\Entity\Utilisateur")->find($id);
+            $utilisateur->setEnabled(true);
+            $em->flush();
+            $response = new JsonResponse();
+        }
+        return $response->setData(array('retour' => $id));
+    }
+    
+ 
+    
+    #[Route('/', name:'app_utilisateur_index')]
+        public function list_students(UtilisateurRepository $repo)
+        {
+            $utilisateurs =$repo->findByNom();
+            return $this->render('utilisateur/index.html.twig',[
+                'utilisateurs' => $utilisateurs,
+            ]);
+        }
+
+       
+        
 }
